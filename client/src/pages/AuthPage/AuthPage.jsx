@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './AuthPage.scss';
+import Navbar from '../../components/Navbar/Navbar';
 
 export default function AuthPage() {
   const [form, setForm] = useState({
     email: '',
-    password: ''
+    password: '',
+    firstname: '',
+    lastname: ''
   });
 
   const [message, setMessage] = useState('');
@@ -18,42 +21,51 @@ export default function AuthPage() {
 
   const loginHandler = async (event) => {
     event.preventDefault();
-
+  
     try {
-      const response = await axios.post('/api/auth/login', { ...form });
-
+      const response = await axios.post('/auth/login', { ...form });
+      localStorage.setItem('token', response.data.token);
       console.log('Login successful:', response.data);
       setMessage('Login successful!');
-
-      navigate('/'); // Redirect to the home page after successful login
+      setTimeout(() => {
+        navigate('/loginedhome');
+      }, 1400);
     } catch (error) {
-      console.error('Login error:', error);
-      if (error.response) {
-        setMessage('Error during login: ' + error.response.data.message);
-      } else if (error.request) {
-        setMessage('No response from the server');
-      }
+      handleError(error);
     }
   };
-
+  
+  
+  
   const registerHandler = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/api/auth/registration', { ...form });
+      const response = await axios.post('/auth/register', { ...form });
       console.log('Registration successful:', response.data);
       setMessage('Registration successful!');
-      setInterval(() => {navigate('/auth/login')}, 1400);
+      setTimeout(() => {
+        navigate('/auth/login');
+      }, 1400);
     } catch (error) {
-      console.error('Registration error:', error);
-      if (error.response) {
-        setMessage('Error during registration: ' + error.response.data.message);
-      } else if (error.request) {
-        setMessage('No response from the server');
-      }
+      handleError(error);
     }
   };
+  
+  const handleError = (error) => {
+    console.error(error);
+    if (error.response) {
+      setMessage('Error: ' + error.response.data.message);
+    } else if (error.request) {
+      setMessage('No response from the server');
+    } else {
+      setMessage('An unexpected error occurred');
+    }
+  };
+  
 
   return (
+  <>
+  <Navbar />
     <div className="container">
       <div className="auth-page">
         <Routes>
@@ -127,6 +139,26 @@ export default function AuthPage() {
                       />
                       <label htmlFor="password">Password</label>
                     </div>
+                    <div className="input-field col s12">
+                      <input
+                        type="text"
+                        name="firstname"
+                        className="validate"
+                        onChange={changeHandler}
+                        value={form.firstname}
+                      />
+                      <label htmlFor="firstname">First Name</label>
+                    </div>
+                    <div className="input-field col s12">
+                      <input
+                        type="text"
+                        name="lastname"
+                        className="validate"
+                        onChange={changeHandler}
+                        value={form.lastname}
+                      />
+                      <label htmlFor="lastname">Last Name</label>
+                    </div>
                   </div>
                   <div className="row">
                     <button className="waves-effect waves-light btn btn blue">
@@ -144,5 +176,6 @@ export default function AuthPage() {
         </Routes>
       </div>
     </div>
+  </>
   );
 }

@@ -1,9 +1,9 @@
 {
   "name": "login-pade-mern",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "server": "nodemon index.js",
+    "server": "nodemon server.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
@@ -16,15 +16,20 @@
     "buffer": "^6.0.3",
     "concurrently": "^9.1.2",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "env": "^0.0.2",
     "express": "^4.21.2",
-    "mongoose": "^8.12.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.13.1",
+    "node-fetch": "^3.3.2",
     "nodemon": "^3.1.9",
     "react-router-dom": "^7.4.0",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^3.0.1"
   },
   "devDependencies": {
     "babel-jest": "^29.7.0",
     "chokidar": "^4.0.3",
-    "sass": "^1.86.0"
+    "sass": "^1.86.0",
+    "webpack-dev-server": "^4.0.0"
   }
 }

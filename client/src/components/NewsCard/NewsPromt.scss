@@ -1,0 +1,24 @@
+.newsList {
+    height: 90vh; 
+    overflow-y: auto; 
+
+    .newsCard {
+        background: rgba(255, 255, 255, 0.4); // Коригуємо rgba
+        padding: 43px;
+        border-radius: 50px;
+        display: flex;
+        justify-content: space-between;
+        margin: 25px;
+
+        .cardinfo {
+            width: 60%;
+        }
+
+        img {
+            width: 30%;
+            height: 200px;
+            background: #fff;
+            border-radius: 15px;
+        }
+    }
+}

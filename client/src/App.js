@@ -1,17 +1,41 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';  
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage/HomePage';
 import AuthPage from './pages/AuthPage/AuthPage';
-import Navbar from './components/Navbar/Navbar.jsx';
+import LoginedHome from './loginedPages/HomeLogined/HomeLogined';
+import { useState } from 'react';
+import UserSettings from './helpers/UserSettings/UserSettings';
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const login = (userData) => {
+    setUser(userData); 
+  };
+
+  const logout = () => {
+    setUser(null); 
+  };
+
   return (
     <Router>
-      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/auth/*" element={<AuthPage />} />
-      </Routes>
+        
+        <Route 
+          path="/auth/*" 
+          element={<AuthPage login={login} />} 
+        />
+        
+        <Route 
+          path="/loginedhome" 
+          element={user ? <Navigate to={'/auth/login'} /> : <LoginedHome user={user} logout={logout} />} 
+        />
+        
+        <Route 
+          path="/settings"
+          element={user ? <Navigate to="/auth/login" /> : <UserSettings /> } 
+        />
+      </Routes> 
     </Router>
   );
 }

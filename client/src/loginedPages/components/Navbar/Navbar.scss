@@ -1,0 +1,38 @@
+*:hover{
+    
+}
+.mt-50p{
+    margin-top: 50%;
+}
+
+.navbar{
+    padding-left: 20%;
+    padding-right: 20%;
+    ul{
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    ul>li{
+        margin-left: 8px;
+    }
+    .brand-logo{
+        font-size: 23px;
+    }
+    .welkomText{
+        width: 100%;
+        height: 30px;
+    }
+    .settings{
+        width: 30px;
+        height: 30px;
+        background-size: cover;
+        background-image: url(./settings.png);
+    }
+    .userPicture{
+        width: 30px;
+        height: 30px;
+        background-size: cover;
+        background-image: url(./userpicure.png);
+    }
+}
