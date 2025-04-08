@@ -24,3 +24,13 @@ The **ISR - Internationale Student Raad** project aims to create a platform wher
    Then type "npm i" in "client" directory
    ```bash
    npm install
+4.
+   To start backend with frontend type:
+   ```bash
+   npm run dev
+##
+   - It will start the project
+
+## Don`t forget to plase your MONGODB link in server.js file !!!
+   ```bash
+   await mongoose.connect('YOUR_MONGODB_LINK');
